@@ -185,3 +185,6 @@ project/plugins/project/
 !.vscode/*.code-snippets
 
 # End of https://www.toptal.com/developers/gitignore/api/scala,java,sbt,macos,visualstudiocode,intellij+all
+
+
+env.sh

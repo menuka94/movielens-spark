@@ -1,5 +1,6 @@
 package org.movielens
 
-class Constants {
-
+object Constants {
+  final val SPARK_MASTER: String = System.getenv("SPARK_MASTER")
+  final val DATA_DIR: String = System.getenv("DATA_DIR")
 }

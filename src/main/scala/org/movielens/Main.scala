@@ -1,7 +1,7 @@
 package org.movielens
 
-class Main {
+object Main {
   def main(args: Array[String]): Unit = {
-    println("Hello World!")
+    println(s"SPARK_MASTER: ${Constants.SPARK_MASTER}")
   }
 }

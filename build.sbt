@@ -1,4 +1,4 @@
-name := "cs555-hw3"
+name := "movielens-spark"
 
 version := "1.0"
 
