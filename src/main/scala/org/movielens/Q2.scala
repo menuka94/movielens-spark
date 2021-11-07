@@ -1,6 +1,7 @@
 package org.movielens
 
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.{SparkSession, functions}
+import org.apache.spark.sql.functions._
 
 /**
  * What is the average number of genres for movies within the dataset?
@@ -8,6 +9,7 @@ import org.apache.spark.sql.SparkSession
  */
 class Q2 (spark: SparkSession) extends Question (spark){
   override def run(): Unit  ={
+    import spark.implicits._
     println("Question 2")
 
     val moviesDF = spark.read
@@ -16,6 +18,12 @@ class Q2 (spark: SparkSession) extends Question (spark){
       .load(s"${Constants.DATA_DIR}/movie.csv")
 
     println(s"No. of rows: ${moviesDF.count()}")
+    val genresDF = moviesDF.withColumn("numGenres",
+      size(split(moviesDF("genres"), "^\\|$")))
 
+    val avgNoOfGenres = genresDF.select(mean("numGenres"))
+    avgNoOfGenres.show()
+
+    // write output
   }
 }

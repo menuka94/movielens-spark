@@ -21,7 +21,7 @@ object Main {
       .config(conf)
       .getOrCreate()
 
-    val q1 : Question = new Q1(spark)
-    q1.run()
+    val q2 : Question = new Q2(spark)
+    q2.run()
   }
 }
