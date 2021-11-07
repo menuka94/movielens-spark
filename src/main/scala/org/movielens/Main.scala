@@ -21,8 +21,7 @@ object Main {
       .config(conf)
       .getOrCreate()
 
-    val moviesDF = spark.read.format("csv").load(s"${Constants.DATA_DIR}/movies.csv")
-    println(s"No. of rows: ${moviesDF.count()}")
-    moviesDF.show(10)
+    val q1 : Question = new Q1(spark)
+    q1.run()
   }
 }
