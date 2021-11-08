@@ -5,9 +5,10 @@ import org.apache.spark.sql.{SparkSession, functions}
 
 /**
  * Find the top-3 combinations of genres that have the highest ratings
+ *
  * @param spark : SparkSession
  */
-class Q4 (spark: SparkSession) extends Question (spark) {
+class Q4(spark: SparkSession) extends Question(spark) {
   override def run(): Unit = {
     import spark.sqlContext.implicits._
     println("Question 3")

@@ -8,9 +8,10 @@ import org.apache.spark.sql.{SparkSession, functions}
  * Find how many movies were released within different genres.
  * A movie may span multiple genres; in such cases, that movie should be counted
  * in all the genres
+ *
  * @param spark : SparkSession
  */
-class Q6 (spark: SparkSession) extends Question (spark) {
+class Q6(spark: SparkSession) extends Question(spark) {
   override def run(): Unit = {
     import spark.sqlContext.implicits._
     println("Question 6")
@@ -29,8 +30,10 @@ class Q6 (spark: SparkSession) extends Question (spark) {
     println(s"No. of distinct genres: ${uniqueGenres.first()}")
 
     val moviesGenresDF = moviesDF
+      // group genres by number of rows
       .groupBy("genres")
       .count()
+      // sort by genres
       .orderBy("genres")
 
     moviesGenresDF.show(moviesGenresDF.count().toInt)
