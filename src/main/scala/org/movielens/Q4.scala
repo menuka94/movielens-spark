@@ -1,15 +1,13 @@
 package org.movielens
 
-import org.apache.spark.sql.functions.explode
+import org.apache.spark.sql.functions.desc
 import org.apache.spark.sql.{SparkSession, functions}
 
 /**
- * Rank the genres in the order of their ratings? Again, a movie may span multiple genres;
- * such a movie should be counted in all the genres.
- *
+ * Find the top-3 combinations of genres that have the highest ratings
  * @param spark : SparkSession
  */
-class Q3(spark: SparkSession) extends Question(spark) {
+class Q4 (spark: SparkSession) extends Question (spark) {
   override def run(): Unit = {
     import spark.sqlContext.implicits._
     println("Question 3")
@@ -29,16 +27,23 @@ class Q3(spark: SparkSession) extends Question(spark) {
       .join(ratingsDF, "movieId")
       // select the necessary columns
       .select("genres", "rating")
-      // split genres into multiple rows
-      .withColumn("genres", explode(functions.split($"genres", "\\|")))
-      // cast ratings to floats - required for calculating the average
-      .withColumn("rating", $"rating".cast("float").alias("rating"))
+      // add new column 'numColumns' to represent the number of genres
+      .withColumn("numGenres",
+        functions.size(functions.split($"genres", "\\|")))
+      // cast ratings to floats
+      .withColumn("rating", $"rating".cast("float"))
+      // cast numGenres to integers
+      .withColumn("numGenres", $"numGenres".cast("integer"))
+      // filter rows with exactly 3 genres listed
+      .filter("numGenres == 3")
       // group genres by average rating
       .groupBy("genres")
       .mean("rating")
       // sort rows by average rating
-      .orderBy("avg(rating)")
+      .orderBy(desc("avg(rating)"))
 
-    genresRatingsDF.show(10)
+
+    println(genresRatingsDF.first())
+
   }
 }
