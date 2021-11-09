@@ -22,7 +22,7 @@ class Q2(spark: SparkSession) extends Question(spark) {
       size(split(moviesDF("genres"), "\\|")))
 
     val avgNoOfGenres = genresDF.select(mean("numGenres"))
-    avgNoOfGenres.show()
+    avgNoOfGenres.show(avgNoOfGenres.count().toInt)
 
     // write output
   }

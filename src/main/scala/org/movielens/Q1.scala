@@ -38,6 +38,6 @@ class Q1(spark: SparkSession) extends Question(spark) {
       // sort by year
       .orderBy("year")
 
-    println(yearsCount.show(10))
+    println(yearsCount.show(yearsCount.count().toInt))
   }
 }

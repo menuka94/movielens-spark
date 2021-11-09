@@ -39,6 +39,6 @@ class Q3(spark: SparkSession) extends Question(spark) {
       // sort rows by average rating
       .orderBy("avg(rating)")
 
-    genresRatingsDF.show(10)
+    genresRatingsDF.show(genresRatingsDF.count().toInt)
   }
 }
