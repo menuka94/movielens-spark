@@ -1,5 +1,7 @@
 # Analyzing the MovieLens Dataset using Spark
 
+## Dataset: https://www.kaggle.com/grouplens/movielens-20m-dataset
+
 ## Building
 - `make build`
 
