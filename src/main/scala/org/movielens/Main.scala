@@ -9,9 +9,22 @@ object Main {
     println(s"SPARK_MASTER: ${Constants.SPARK_MASTER}")
     if (Constants.USE_HDFS) {
       println("Using HDFS")
+      if (!Constants.HDFS_DATA_DIR.isBlank) {
+        println(s"HDFS_DATA_DIR: ${Constants.HDFS_DATA_DIR}")
+      } else {
+        println("HDFS_DATA_DIR is blank. Exiting ...")
+        System.exit(1)
+      }
+
+      if (!Constants.HDFS_OUTPUT_DIR.isBlank) {
+        println(s"HDFS_OUTPUT_DIR: ${Constants.HDFS_OUTPUT_DIR}")
+      } else {
+        println("HDFS_OUTPUT_DIR is blank. Exiting ...")
+        System.exit(1)
+      }
     } else {
       println("Using local storage")
-      println(s"DATA_DIR: ${Constants.DATA_DIR}")
+      println(s"DATA_DIR: ${Constants.LOCAL_DATA_DIR}")
     }
 
     val conf: SparkConf = new SparkConf()

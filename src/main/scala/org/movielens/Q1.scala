@@ -1,7 +1,7 @@
 package org.movielens
 
-import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.regexp_extract
+import org.apache.spark.sql.{DataFrame, SparkSession}
 
 /**
  * How many movies were released for every year within the dataset?
@@ -12,10 +12,7 @@ class Q1(spark: SparkSession) extends Question(spark) {
   override def run(): Unit = {
     println("Question 1: ")
 
-    val moviesDF = spark.read
-      .format("csv")
-      .option("header", "true")
-      .load(s"${Constants.DATA_DIR}/movie.csv")
+    val moviesDF: DataFrame = FileUtil.readCsv("movie.csv", spark)
 
     println(s"No. of rows: ${moviesDF.count()}")
 
@@ -28,8 +25,8 @@ class Q1(spark: SparkSession) extends Question(spark) {
     val yearsCount = moviesDF
       // extract year
       .withColumn("year", regexp_extract(moviesDF("title"), pattern, 0)
-      // remove parentheses i.e. (1995) => 1995
-      .substr(2, 4))
+        // remove parentheses i.e. (1995) => 1995
+        .substr(2, 4))
       // drop rows where year is N/A
       .na.drop(Seq("year"))
       // group year by number of rows

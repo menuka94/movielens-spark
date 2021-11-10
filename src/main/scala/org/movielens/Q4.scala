@@ -1,7 +1,7 @@
 package org.movielens
 
 import org.apache.spark.sql.functions.desc
-import org.apache.spark.sql.{SparkSession, functions}
+import org.apache.spark.sql.{DataFrame, SparkSession, functions}
 
 /**
  * Find the top-3 combinations of genres that have the highest ratings
@@ -13,15 +13,9 @@ class Q4(spark: SparkSession) extends Question(spark) {
     import spark.sqlContext.implicits._
     println("Question 3")
 
-    val moviesDF = spark.read
-      .format("csv")
-      .option("header", "true")
-      .load(s"${Constants.DATA_DIR}/movie.csv")
+    val moviesDF: DataFrame = FileUtil.readCsv("movie.csv", spark)
 
-    val ratingsDF = spark.read
-      .format("csv")
-      .option("header", "true")
-      .load(s"${Constants.DATA_DIR}/rating.csv")
+    val ratingsDF: DataFrame = FileUtil.readCsv("rating.csv", spark)
 
     val genresRatingsDF = moviesDF
       // join movies and ratings using movieId column

@@ -1,7 +1,7 @@
 package org.movielens
 
-import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.lower
+import org.apache.spark.sql.{DataFrame, SparkSession}
 
 /**
  * Find the number of movies that have been tagged as "Comedy"
@@ -14,10 +14,7 @@ class Q5(spark: SparkSession) extends Question(spark) {
     import spark.sqlContext.implicits._
     println("Question 5")
 
-    val moviesDF = spark.read
-      .format("csv")
-      .option("header", "true")
-      .load(s"${Constants.DATA_DIR}/movie.csv")
+    val moviesDF: DataFrame = FileUtil.readCsv("movie.csv", spark)
 
     val numComedyMovies = moviesDF
       // filter movies with genre "comedy" (ignoring case)

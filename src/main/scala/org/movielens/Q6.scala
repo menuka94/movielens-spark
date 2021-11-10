@@ -1,7 +1,7 @@
 package org.movielens
 
 import org.apache.spark.sql.functions.{countDistinct, explode, lower}
-import org.apache.spark.sql.{SparkSession, functions}
+import org.apache.spark.sql.{DataFrame, SparkSession, functions}
 
 /**
  * Find the different genres within the dataset.
@@ -16,10 +16,7 @@ class Q6(spark: SparkSession) extends Question(spark) {
     import spark.sqlContext.implicits._
     println("Question 6")
 
-    var moviesDF = spark.read
-      .format("csv")
-      .option("header", "true")
-      .load(s"${Constants.DATA_DIR}/movie.csv")
+    var moviesDF: DataFrame = FileUtil.readCsv("movie.csv", spark)
 
     moviesDF = moviesDF.withColumn("genres",
       explode(functions.split($"genres", "\\|")))
