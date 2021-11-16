@@ -40,5 +40,6 @@ class Q4(spark: SparkSession) extends Question(spark) {
 
     println(genresRatingsDF.first())
 
+    FileUtil.writeOutput("q4", genresRatingsDF, spark)
   }
 }

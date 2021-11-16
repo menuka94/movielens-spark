@@ -22,5 +22,10 @@ class Q5(spark: SparkSession) extends Question(spark) {
       .count()
 
     println(s"No. of Comedy movies: $numComedyMovies")
+
+    if (Constants.USE_HDFS) {
+      spark.sparkContext.parallelize(Seq(numComedyMovies))
+        .saveAsTextFile(s"${Constants.HDFS_OUTPUT_DIR}/q5")
+    }
   }
 }

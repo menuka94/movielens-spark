@@ -34,5 +34,7 @@ class Q3(spark: SparkSession) extends Question(spark) {
       .orderBy("avg(rating)")
 
     genresRatingsDF.show(genresRatingsDF.count().toInt)
+
+    FileUtil.writeOutput("q3", genresRatingsDF, spark)
   }
 }

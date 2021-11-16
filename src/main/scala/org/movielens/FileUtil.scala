@@ -24,4 +24,15 @@ object FileUtil {
       df
     }
   }
+
+  def writeOutput(fileName: String, df: DataFrame, spark: SparkSession): Unit = {
+    if (Constants.USE_HDFS) {
+      df.coalesce(1)
+        .write.mode("overwrite")
+        .option("header", "true")
+        .csv(s"${Constants.HDFS_OUTPUT_DIR}/$fileName")
+    } else {
+      println("writeOutput() skipping -- Not using HDFS.")
+    }
+  }
 }

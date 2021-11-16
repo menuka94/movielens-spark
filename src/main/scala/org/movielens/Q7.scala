@@ -3,7 +3,7 @@ package org.movielens
 import org.apache.spark.sql.functions.{asc, col, regexp_extract}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
-class Q7(spark: SparkSession) extends Question (spark) {
+class Q7(spark: SparkSession) extends Question(spark) {
   override def run(): Unit = {
     println("Question 7: ")
 
@@ -16,7 +16,7 @@ class Q7(spark: SparkSession) extends Question (spark) {
       .withColumn("rating", col("rating").cast("Double"))
       .withColumn("year",
         regexp_extract(moviesDF("title"), pattern, 0)
-        .substr(2, 4)
+          .substr(2, 4)
       )
       .filter("year != ''")
 
@@ -25,5 +25,7 @@ class Q7(spark: SparkSession) extends Question (spark) {
       .orderBy(asc("year"))
 
     answer.show(answer.count().toInt)
+
+    FileUtil.writeOutput("q7", answer, spark)
   }
 }

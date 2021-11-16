@@ -34,5 +34,7 @@ class Q6(spark: SparkSession) extends Question(spark) {
       .orderBy("genres")
 
     moviesGenresDF.show(moviesGenresDF.count().toInt)
+
+    FileUtil.writeOutput("q6", moviesGenresDF, spark)
   }
 }

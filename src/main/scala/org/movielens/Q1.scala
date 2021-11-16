@@ -37,11 +37,6 @@ class Q1(spark: SparkSession) extends Question(spark) {
 
     println(yearsCount.show(yearsCount.count().toInt))
 
-    if (Constants.USE_HDFS) {
-      yearsCount.coalesce(1)
-        .write.mode("overwrite")
-        .option("header", "true")
-        .csv(s"${Constants.HDFS_OUTPUT_DIR}/q1")
-    }
+    FileUtil.writeOutput("q1", yearsCount, spark)
   }
 }

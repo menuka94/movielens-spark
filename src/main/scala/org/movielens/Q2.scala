@@ -22,5 +22,6 @@ class Q2(spark: SparkSession) extends Question(spark) {
     avgNoOfGenres.show(avgNoOfGenres.count().toInt)
 
     // write output
+    FileUtil.writeOutput("q2", avgNoOfGenres, spark)
   }
 }
