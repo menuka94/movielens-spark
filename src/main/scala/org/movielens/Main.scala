@@ -42,6 +42,7 @@ object Main {
       case 4 => new Q4(spark).run()
       case 5 => new Q5(spark).run()
       case 6 => new Q6(spark).run()
+      case 7 => new Q7(spark).run()
     }
   }
 }
