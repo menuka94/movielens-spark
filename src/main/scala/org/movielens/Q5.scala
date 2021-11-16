@@ -25,6 +25,7 @@ class Q5(spark: SparkSession) extends Question(spark) {
 
     if (Constants.USE_HDFS) {
       spark.sparkContext.parallelize(Seq(numComedyMovies))
+        .coalesce(1)
         .saveAsTextFile(s"${Constants.HDFS_OUTPUT_DIR}/q5")
     }
   }
