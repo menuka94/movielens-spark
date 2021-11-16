@@ -29,8 +29,6 @@ class Q4(spark: SparkSession) extends Question(spark) {
       .withColumn("rating", $"rating".cast("float"))
       // cast numGenres to integers
       .withColumn("numGenres", $"numGenres".cast("integer"))
-      // filter rows with exactly 3 genres listed
-      .filter("numGenres == 3")
       // group genres by average rating
       .groupBy("genres")
       .mean("rating")
