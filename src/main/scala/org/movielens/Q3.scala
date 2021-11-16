@@ -14,9 +14,9 @@ class Q3(spark: SparkSession) extends Question(spark) {
     import spark.sqlContext.implicits._
     println("Question 3")
 
-    val moviesDF: DataFrame = FileUtil.readCsv("movie.csv", spark)
+    val moviesDF: DataFrame = FileUtil.readCsv("movies.csv", spark)
 
-    val ratingsDF: DataFrame = FileUtil.readCsv("rating.csv", spark)
+    val ratingsDF: DataFrame = FileUtil.readCsv("ratings.csv", spark)
 
     val genresRatingsDF = moviesDF
       // join movies and ratings using movieId column

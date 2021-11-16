@@ -16,7 +16,7 @@ class Q6(spark: SparkSession) extends Question(spark) {
     import spark.sqlContext.implicits._
     println("Question 6")
 
-    var moviesDF: DataFrame = FileUtil.readCsv("movie.csv", spark)
+    var moviesDF: DataFrame = FileUtil.readCsv("movies.csv", spark)
 
     moviesDF = moviesDF.withColumn("genres",
       explode(functions.split($"genres", "\\|")))

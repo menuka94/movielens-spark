@@ -14,7 +14,7 @@ class Q5(spark: SparkSession) extends Question(spark) {
     import spark.sqlContext.implicits._
     println("Question 5")
 
-    val moviesDF: DataFrame = FileUtil.readCsv("movie.csv", spark)
+    val moviesDF: DataFrame = FileUtil.readCsv("movies.csv", spark)
 
     val numComedyMovies = moviesDF
       // filter movies with genre "comedy" (ignoring case)

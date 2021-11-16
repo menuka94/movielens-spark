@@ -12,7 +12,7 @@ class Q2(spark: SparkSession) extends Question(spark) {
   override def run(): Unit = {
     println("Question 2")
 
-    val moviesDF = FileUtil.readCsv("movie.csv", spark)
+    val moviesDF = FileUtil.readCsv("movies.csv", spark)
 
     println(s"No. of rows: ${moviesDF.count()}")
     val genresDF = moviesDF.withColumn("numGenres",
